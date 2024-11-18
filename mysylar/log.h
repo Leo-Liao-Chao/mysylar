@@ -71,23 +71,22 @@ namespace mysylar
     public:
         typedef std::shared_ptr<LogEvent> ptr;
         LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char *file, int32_t line, uint32_t elapse,
-                 uint32_t threadId, uint32_t m_fiberId, uint64_t time);
-
-        const char *getFile() const { return m_file; }
-
-        int32_t getLine() const { return m_line; }
-        uint32_t getElapse() const { return m_elapse; }       // 程序启动到现在的毫秒数，单位 ms
-        uint32_t getThreadId() const { return m_threadId; }   // 线程Id
-        uint32_t getFiberId() const { return m_fiberId; }     // 协程Id
-        uint64_t getTime() const { return m_time; }           // 时间戳
-        std::string getContent() const { return m_ss.str(); } // 内容
-
-        std::stringstream &getSS() { return m_ss; }
-        void format(const char *fmt, ...);
-        void format(const char *fmt, va_list al);
+                 uint32_t threadId, uint32_t fiberId, uint64_t time);
 
         std::shared_ptr<Logger> getLogger() const { return m_logger; }
         LogLevel::Level getLevel() const { return m_level; }
+        const char *getFile() const { return m_file; }
+        int32_t getLine() const { return m_line; }
+        uint32_t getElapse() const { return m_elapse; }     // 程序启动到现在的毫秒数，单位 ms
+        uint32_t getThreadId() const { return m_threadId; } // 线程Id
+        uint32_t getFiberId() const { return m_fiberId; }   // 协程Id
+        uint64_t getTime() const { return m_time; }         // 时间戳
+
+        std::stringstream &getSS() { return m_ss; }
+        std::string getContent() const { return m_ss.str(); } // 内容
+
+        void format(const char *fmt, ...);
+        void format(const char *fmt, va_list al);
 
     private:
         const char *m_file = nullptr; // 文件名
@@ -101,7 +100,6 @@ namespace mysylar
         std::shared_ptr<Logger> m_logger;
         LogLevel::Level m_level;
     };
-
     class LogEventWrap
     {
     public:
@@ -114,7 +112,6 @@ namespace mysylar
     private:
         LogEvent::ptr m_event;
     };
-
     // 日志输出格式
     class LogFormatter
     {
@@ -207,22 +204,20 @@ namespace mysylar
         std::string m_filename;
         std::ofstream m_filestream;
     };
-
+    // logger管理器
     class LoggerManager
     {
     public:
         LoggerManager();
-        Logger::ptr getLogger(const std::string& name);
+        Logger::ptr getLogger(const std::string &name);
         void init();
 
     private:
-        std::map<std::string,Logger::ptr> m_loggers;
+        std::map<std::string, Logger::ptr> m_loggers;
         Logger::ptr m_root;
-
-
     };
     typedef mysylar::Singleton<LoggerManager> LoggerMgr;
-    
+
 }
 
 #endif

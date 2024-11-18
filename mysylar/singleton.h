@@ -1,7 +1,7 @@
 #ifndef __MYSYLAR_SINGLETON_H__
 #define __MYSYLAR_SINGLETON_H__
 
-// #include<memory>
+#include<memory>
 
 namespace mysylar
 {

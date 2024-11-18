@@ -13,18 +13,19 @@ int main(int argc, char **argv)
     logger->addAppender(file_appender);
     file_appender->setLevel(mysylar::LogLevel::ERROR);
 
-    // // logger->addAppender(file_appender);
+    // logger->addAppender(file_appender);
 
-    mysylar::LogEvent::ptr event(new mysylar::LogEvent(logger, mysylar::LogLevel::DEBUG, __FILE__, __LINE__, 0, mysylar::GetThreadId(), mysylar::GetFiberId(), time(0)));
-    event->getSS() << "Hello mysylar log";
-    logger->log(mysylar::LogLevel::DEBUG, event);
+    
+    // mysylar::LogEvent::ptr event(new mysylar::LogEvent(logger,mysylar::LogLevel::DEBUG,__FILE__, __LINE__, 0, mysylar::GetThreadId(), mysylar::GetFiberId(), time(0)));
+    // event->getSS() << "Hello mysylar log";
+    // logger->log(mysylar::LogLevel::DEBUG, event);
 
     // std::cout << "Hello mysylar log " << std::endl;
     MYSYLAR_LOG_INFO(logger) << "test macro";
     // MYSYLAR_LOG_FMT_DEBUG(logger,"test macro fmt debug %s","aa");
-    MYSYLAR_LOG_FMT_ERROR(logger, "test macro fmt debug %s", "aa");
+    MYSYLAR_LOG_FMT_ERROR(logger,"test macro fmt debug %s","aa");
 
     auto l = mysylar::LoggerMgr::GetInstance()->getLogger("xx");
-    MYSYLAR_LOG_INFO(l) << "xxx";
+    MYSYLAR_LOG_INFO(l) <<"xxx";
     return 0;
 }
