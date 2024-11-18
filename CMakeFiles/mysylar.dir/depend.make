@@ -3,4 +3,9 @@
 
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.cpp
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.h
+CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/singleton.h
+CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/util/util.h
+
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/util/util.cpp
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/util/util.h
 

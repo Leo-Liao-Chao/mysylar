@@ -3,4 +3,6 @@
 
 CMakeFiles/test.dir/test/test.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/singleton.h
+ /home/liaochao/workspace/mysylar/mysylar/util/util.h
  /home/liaochao/workspace/mysylar/test/test.cpp

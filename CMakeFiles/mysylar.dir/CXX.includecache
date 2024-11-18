@@ -9,10 +9,6 @@
 /home/liaochao/workspace/mysylar/mysylar/log.cpp
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
-map
--
-time.h
--
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string
@@ -32,5 +28,31 @@ vector
 iostream
 -
 functional
+-
+map
+-
+time.h
+-
+stdarg.h
+-
+./util/util.h
+/home/liaochao/workspace/mysylar/mysylar/util/util.h
+./singleton.h
+/home/liaochao/workspace/mysylar/mysylar/singleton.h
+
+/home/liaochao/workspace/mysylar/mysylar/singleton.h
+
+/home/liaochao/workspace/mysylar/mysylar/util/util.h
+pthread.h
+-
+unistd.h
+-
+sys/types.h
+-
+sys/syscall.h
+-
+stdio.h
+-
+stdint.h
 -
 

@@ -6,5 +6,5 @@ CXX_FLAGS =  -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unus
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/liaochao/workspace/mysylar/mysylar 
+CXX_INCLUDES = 
 

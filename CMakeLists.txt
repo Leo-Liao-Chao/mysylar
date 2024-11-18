@@ -5,9 +5,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function")
 
 set(LIB_SRC
-    mysylar/log.cpp)
+    mysylar/log.cpp
+    mysylar/util/util.cpp
+    )
 
-include_directories(mysylar)
+# include_directories(mysylar)
 
 add_library(mysylar ${LIB_SRC})
 # add_library(mysylar_static STATIC ${LIB_SRC})
