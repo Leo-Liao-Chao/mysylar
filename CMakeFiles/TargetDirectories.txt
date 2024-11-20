@@ -1,4 +1,5 @@
 /home/liaochao/workspace/mysylar/CMakeFiles/rebuild_cache.dir
+/home/liaochao/workspace/mysylar/CMakeFiles/test_config.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/edit_cache.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/test.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/mysylar.dir

@@ -114,6 +114,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_config
+
+# Build rule for target.
+test_config: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_config
+.PHONY : test_config
+
+# fast build rule for target.
+test_config/fast:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
+.PHONY : test_config/fast
+
+#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -138,6 +151,36 @@ mysylar: cmake_check_build_system
 mysylar/fast:
 	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/build
 .PHONY : mysylar/fast
+
+mysylar/config.o: mysylar/config.cpp.o
+
+.PHONY : mysylar/config.o
+
+# target to build an object file
+mysylar/config.cpp.o:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/mysylar/config.cpp.o
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/config.cpp.o
+.PHONY : mysylar/config.cpp.o
+
+mysylar/config.i: mysylar/config.cpp.i
+
+.PHONY : mysylar/config.i
+
+# target to preprocess a source file
+mysylar/config.cpp.i:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/mysylar/config.cpp.i
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/config.cpp.i
+.PHONY : mysylar/config.cpp.i
+
+mysylar/config.s: mysylar/config.cpp.s
+
+.PHONY : mysylar/config.s
+
+# target to generate assembly for a file
+mysylar/config.cpp.s:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/mysylar/config.cpp.s
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/config.cpp.s
+.PHONY : mysylar/config.cpp.s
 
 mysylar/log.o: mysylar/log.cpp.o
 
@@ -220,6 +263,33 @@ test/test.cpp.s:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/test/test.cpp.s
 .PHONY : test/test.cpp.s
 
+test/test_config.o: test/test_config.cpp.o
+
+.PHONY : test/test_config.o
+
+# target to build an object file
+test/test_config.cpp.o:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/test/test_config.cpp.o
+.PHONY : test/test_config.cpp.o
+
+test/test_config.i: test/test_config.cpp.i
+
+.PHONY : test/test_config.i
+
+# target to preprocess a source file
+test/test_config.cpp.i:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/test/test_config.cpp.i
+.PHONY : test/test_config.cpp.i
+
+test/test_config.s: test/test_config.cpp.s
+
+.PHONY : test/test_config.s
+
+# target to generate assembly for a file
+test/test_config.cpp.s:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/test/test_config.cpp.s
+.PHONY : test/test_config.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -227,9 +297,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... test_config"
 	@echo "... edit_cache"
 	@echo "... test"
 	@echo "... mysylar"
+	@echo "... mysylar/config.o"
+	@echo "... mysylar/config.i"
+	@echo "... mysylar/config.s"
 	@echo "... mysylar/log.o"
 	@echo "... mysylar/log.i"
 	@echo "... mysylar/log.s"
@@ -239,6 +313,9 @@ help:
 	@echo "... test/test.o"
 	@echo "... test/test.i"
 	@echo "... test/test.s"
+	@echo "... test/test_config.o"
+	@echo "... test/test_config.i"
+	@echo "... test/test_config.s"
 .PHONY : help
 
 

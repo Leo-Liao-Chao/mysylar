@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-depre
 set(LIB_SRC
     mysylar/log.cpp
     mysylar/util/util.cpp
+    mysylar/config.cpp
     )
 
 # include_directories(mysylar)
@@ -18,6 +19,11 @@ add_library(mysylar ${LIB_SRC})
 add_executable(test test/test.cpp)
 add_dependencies(test mysylar)
 target_link_libraries(test mysylar)
+
+
+add_executable(test_config test/test_config.cpp mysylar/config.cpp)
+add_dependencies(test_config mysylar)
+target_link_libraries(test_config mysylar)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

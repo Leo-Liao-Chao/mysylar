@@ -44,6 +44,8 @@
 #define MYSYLAR_LOG_FMT_ERROR(logger, fmt, ...) MYSYLAR_LOG_FMT_LEVEL(logger, mysylar::LogLevel::ERROR, fmt, __VA_ARGS__)
 #define MYSYLAR_LOG_FMT_FATAL(logger, fmt, ...) MYSYLAR_LOG_FMT_LEVEL(logger, mysylar::LogLevel::FATAL, fmt, __VA_ARGS__)
 
+#define MYSYLAR_LOG_ROOT() mysylar::LoggerMgr::GetInstance()->getRoot()
+
 namespace mysylar
 {
     class Logger;
@@ -212,11 +214,14 @@ namespace mysylar
         Logger::ptr getLogger(const std::string &name);
         void init();
 
+        Logger::ptr getRoot()const{return m_root;}
+
     private:
         std::map<std::string, Logger::ptr> m_loggers;
         Logger::ptr m_root;
     };
     typedef mysylar::Singleton<LoggerManager> LoggerMgr;
+
 
 }
 

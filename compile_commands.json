@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/test_config.dir/test/test_config.cpp.o -c /home/liaochao/workspace/mysylar/test/test_config.cpp",
+  "file": "/home/liaochao/workspace/mysylar/test/test_config.cpp"
+},
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/test_config.dir/mysylar/config.cpp.o -c /home/liaochao/workspace/mysylar/mysylar/config.cpp",
+  "file": "/home/liaochao/workspace/mysylar/mysylar/config.cpp"
+},
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/test.dir/test/test.cpp.o -c /home/liaochao/workspace/mysylar/test/test.cpp",
+  "file": "/home/liaochao/workspace/mysylar/test/test.cpp"
+},
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/mysylar.dir/mysylar/log.cpp.o -c /home/liaochao/workspace/mysylar/mysylar/log.cpp",
+  "file": "/home/liaochao/workspace/mysylar/mysylar/log.cpp"
+},
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o -c /home/liaochao/workspace/mysylar/mysylar/util/util.cpp",
+  "file": "/home/liaochao/workspace/mysylar/mysylar/util/util.cpp"
+},
+{
+  "directory": "/home/liaochao/workspace/mysylar",
+  "command": "/usr/bin/c++     -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function   -o CMakeFiles/mysylar.dir/mysylar/config.cpp.o -c /home/liaochao/workspace/mysylar/mysylar/config.cpp",
+  "file": "/home/liaochao/workspace/mysylar/mysylar/config.cpp"
+}
+]

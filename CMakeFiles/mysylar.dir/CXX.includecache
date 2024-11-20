@@ -6,9 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/liaochao/workspace/mysylar/mysylar/log.cpp
+/home/liaochao/workspace/mysylar/mysylar/config.cpp
+./config.h
+/home/liaochao/workspace/mysylar/mysylar/config.h
+
+/home/liaochao/workspace/mysylar/mysylar/config.h
+memory
+-
+string
+-
+sstream
+-
+map
+-
+boost/lexical_cast.hpp
+-
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
+./util/util.h
+/home/liaochao/workspace/mysylar/mysylar/util/util.h
+./singleton.h
+/home/liaochao/workspace/mysylar/mysylar/singleton.h
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string
