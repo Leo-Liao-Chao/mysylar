@@ -98,6 +98,7 @@ bin/test_config: CMakeFiles/test_config.dir/test/test_config.cpp.o
 bin/test_config: CMakeFiles/test_config.dir/mysylar/config.cpp.o
 bin/test_config: CMakeFiles/test_config.dir/build.make
 bin/test_config: lib/libmysylar.a
+bin/test_config: /usr/local/lib/libyaml-cpp.a
 bin/test_config: CMakeFiles/test_config.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/liaochao/workspace/mysylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/test_config"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_config.dir/link.txt --verbose=$(VERBOSE)

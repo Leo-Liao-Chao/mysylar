@@ -215,6 +215,9 @@ mysylar_BINARY_DIR:STATIC=/home/liaochao/workspace/mysylar
 //Value Computed by CMake
 mysylar_SOURCE_DIR:STATIC=/home/liaochao/workspace/mysylar
 
+//The directory containing a CMake configuration file for yaml-cpp.
+yaml-cpp_DIR:PATH=/usr/local/lib/cmake/yaml-cpp
+
 
 ########################
 # INTERNAL cache entries

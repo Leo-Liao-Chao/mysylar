@@ -21,6 +21,8 @@ map
 -
 boost/lexical_cast.hpp
 -
+yaml-cpp/yaml.h
+-
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
 ./util/util.h

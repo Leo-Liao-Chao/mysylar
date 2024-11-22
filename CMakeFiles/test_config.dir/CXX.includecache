@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/liaochao/workspace/mysylar/mysylar/config.cpp
-./config.h
-/home/liaochao/workspace/mysylar/mysylar/config.h
-
 /home/liaochao/workspace/mysylar/mysylar/config.h
 memory
 -
@@ -20,6 +16,8 @@ sstream
 map
 -
 boost/lexical_cast.hpp
+-
+yaml-cpp/yaml.h
 -
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
@@ -83,4 +81,6 @@ stdint.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
 ../mysylar/util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
+yaml-cpp/yaml.h
+-
 
