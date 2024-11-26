@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libmysylar.a  CMakeFiles/mysylar.dir/mysylar/log.cpp.o CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o
-/usr/bin/ranlib ../lib/libmysylar.a

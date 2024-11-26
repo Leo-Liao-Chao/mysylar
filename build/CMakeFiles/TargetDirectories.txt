@@ -1,5 +1,0 @@
-/home/liaochao/workspace/mysylar/build/CMakeFiles/rebuild_cache.dir
-/home/liaochao/workspace/mysylar/build/CMakeFiles/test_config.dir
-/home/liaochao/workspace/mysylar/build/CMakeFiles/edit_cache.dir
-/home/liaochao/workspace/mysylar/build/CMakeFiles/test.dir
-/home/liaochao/workspace/mysylar/build/CMakeFiles/mysylar.dir

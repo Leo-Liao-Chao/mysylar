@@ -11,8 +11,12 @@
 #include <iostream>
 #include <functional>
 #include <map>
+#include <set>
 #include <time.h>
 #include <stdarg.h>
+
+#include <yaml-cpp/yaml.h>
+#include <boost/lexical_cast.hpp>
 
 #include "./util/util.h"
 #include "./singleton.h"
@@ -45,6 +49,7 @@
 #define MYSYLAR_LOG_FMT_FATAL(logger, fmt, ...) MYSYLAR_LOG_FMT_LEVEL(logger, mysylar::LogLevel::FATAL, fmt, __VA_ARGS__)
 
 #define MYSYLAR_LOG_ROOT() mysylar::LoggerMgr::GetInstance()->getRoot()
+#define MYSYLAR_LOG_NAME(name) mysylar::LoggerMgr::GetInstance()->getLogger(name)
 
 namespace mysylar
 {
@@ -64,6 +69,7 @@ namespace mysylar
             FATAL = 5
         };
         static const char *ToString(LogLevel::Level level);
+        static LogLevel::Level FromString(const std::string &str);
 
     private:
     };
@@ -134,31 +140,40 @@ namespace mysylar
         };
         void init();
 
+        bool isError() const { return m_error; }
+        const std::string getPattern() const { return m_pattern; }
+
     private:
         std::string m_pattern;
         std::vector<FormatterItem::ptr> m_items;
+        bool m_error = false;
     };
     // 日志输出地
     class LogAppender
     {
+    friend class Logger;
     public:
         typedef std::shared_ptr<LogAppender> ptr;
         virtual ~LogAppender() {};
         virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
+        virtual std::string toYamlString() = 0;
 
         LogFormatter::ptr getFormatter() const { return m_formatter; }
-        void setFormatter(LogFormatter::ptr val) { m_formatter = val; }
+        void setFormatter(LogFormatter::ptr val);
 
         LogLevel::Level getLevel() const { return m_level; }
         void setLevel(LogLevel::Level val) { m_level = val; }
 
     protected:
         LogLevel::Level m_level = LogLevel::DEBUG;
+        bool m_hasFromatter = false;
         LogFormatter::ptr m_formatter;
     };
     // 日志器
     class Logger : public std::enable_shared_from_this<Logger>
     {
+        friend class LoggerManager;
+
     public:
         typedef std::shared_ptr<Logger> ptr;
 
@@ -173,17 +188,26 @@ namespace mysylar
 
         void addAppender(LogAppender::ptr appender);
         void delAppender(LogAppender::ptr appender);
+        void clearAppenders();
 
         LogLevel::Level getLevel() { return m_level; }
         void setLevel(LogLevel::Level val) { m_level = val; }
 
         const std::string getName() const { return m_name; }
 
+        void setFormatter(LogFormatter::ptr val);
+        void setFormatter(const std::string &val);
+
+        LogFormatter::ptr getFormatter();
+
+        std::string toYamlString();
+
     private:
         std::string m_name;                      // 日志名称
         LogLevel::Level m_level;                 // 日志等级
         std::list<LogAppender::ptr> m_appenders; // Appender集合
         LogFormatter::ptr m_formatter;
+        Logger::ptr m_root;
     };
     // 定义输出到控制它的Appender
     class StdoutLogAppender : public LogAppender
@@ -191,6 +215,7 @@ namespace mysylar
         typedef std::shared_ptr<StdoutLogAppender> ptr;
 
         virtual void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
+        std::string toYamlString() override;
     };
     // 定义输出到文件的Appender
     class FileLogAppender : public LogAppender
@@ -199,6 +224,7 @@ namespace mysylar
         typedef std::shared_ptr<FileLogAppender> ptr;
         FileLogAppender(const std::string &filename);
         virtual void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
+        std::string toYamlString() override;
 
         bool reopen();
 
@@ -214,14 +240,15 @@ namespace mysylar
         Logger::ptr getLogger(const std::string &name);
         void init();
 
-        Logger::ptr getRoot()const{return m_root;}
+        Logger::ptr getRoot() const { return m_root; }
+
+        std::string toYamlString();
 
     private:
         std::map<std::string, Logger::ptr> m_loggers;
         Logger::ptr m_root;
     };
     typedef mysylar::Singleton<LoggerManager> LoggerMgr;
-
 
 }
 

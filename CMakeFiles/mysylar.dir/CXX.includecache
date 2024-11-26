@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/liaochao/workspace/mysylar/mysylar/config.cpp
-./config.h
-/home/liaochao/workspace/mysylar/mysylar/config.h
-
 /home/liaochao/workspace/mysylar/mysylar/config.h
 memory
 -
@@ -19,16 +15,34 @@ sstream
 -
 map
 -
-boost/lexical_cast.hpp
+vector
+-
+list
+-
+map
+-
+set
+-
+unordered_map
+-
+unordered_set
+-
+functional
 -
 yaml-cpp/yaml.h
+-
+boost/lexical_cast.hpp
 -
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
 ./util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
-./singleton.h
-/home/liaochao/workspace/mysylar/mysylar/singleton.h
+
+/home/liaochao/workspace/mysylar/mysylar/log.cpp
+./log.h
+/home/liaochao/workspace/mysylar/mysylar/log.h
+./config.h
+/home/liaochao/workspace/mysylar/mysylar/config.h
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string
@@ -51,9 +65,15 @@ functional
 -
 map
 -
+set
+-
 time.h
 -
 stdarg.h
+-
+yaml-cpp/yaml.h
+-
+boost/lexical_cast.hpp
 -
 ./util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h

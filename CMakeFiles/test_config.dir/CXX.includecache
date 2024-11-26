@@ -15,16 +15,28 @@ sstream
 -
 map
 -
-boost/lexical_cast.hpp
+vector
+-
+list
+-
+map
+-
+set
+-
+unordered_map
+-
+unordered_set
+-
+functional
 -
 yaml-cpp/yaml.h
+-
+boost/lexical_cast.hpp
 -
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
 ./util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
-./singleton.h
-/home/liaochao/workspace/mysylar/mysylar/singleton.h
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string
@@ -47,9 +59,15 @@ functional
 -
 map
 -
+set
+-
 time.h
 -
 stdarg.h
+-
+yaml-cpp/yaml.h
+-
+boost/lexical_cast.hpp
 -
 ./util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
@@ -82,5 +100,7 @@ stdint.h
 ../mysylar/util/util.h
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
 yaml-cpp/yaml.h
+-
+iostream
 -
 

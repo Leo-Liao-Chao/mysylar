@@ -7,6 +7,7 @@ CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/log.h
 CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/singleton.h
 CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/util/util.h
 
+CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/config.h
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.cpp
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.h
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/singleton.h
