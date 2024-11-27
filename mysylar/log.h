@@ -151,7 +151,8 @@ namespace mysylar
     // 日志输出地
     class LogAppender
     {
-    friend class Logger;
+        friend class Logger;
+
     public:
         typedef std::shared_ptr<LogAppender> ptr;
         virtual ~LogAppender() {};
@@ -166,8 +167,8 @@ namespace mysylar
 
     protected:
         LogLevel::Level m_level = LogLevel::DEBUG;
-        bool m_hasFromatter = false;
         LogFormatter::ptr m_formatter;
+        bool m_hasFormatter = false;
     };
     // 日志器
     class Logger : public std::enable_shared_from_this<Logger>

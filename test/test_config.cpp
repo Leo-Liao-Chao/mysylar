@@ -5,7 +5,7 @@
 #include <iostream>
 
 mysylar::ConfigVar<int>::ptr g_int_value_config = mysylar::Config::Lookup("system.port", (int)8080, "system_port");
-// mysylar::ConfigVar<float>::ptr g_int_valuex_config = mysylar::Config::Lookup("system.port", (float)8080, "system_port");
+mysylar::ConfigVar<float>::ptr g_int_valuex_config = mysylar::Config::Lookup("system.port", (float)8080, "system_port");
 mysylar::ConfigVar<float>::ptr g_float_value_config = mysylar::Config::Lookup("system.value", (float)10.2f, "system value");
 mysylar::ConfigVar<std::vector<int>>::ptr g_int_vec_value_config = mysylar::Config::Lookup("system.int_vec", std::vector<int>{1, 2}, "system int vec");
 mysylar::ConfigVar<std::list<int>>::ptr g_int_list_value_config = mysylar::Config::Lookup("system.int_list", std::list<int>{1, 2}, "system int list");
@@ -205,7 +205,7 @@ void test_class()
 void test_log()
 {
     static mysylar::Logger::ptr system_log = MYSYLAR_LOG_NAME("system");
-    MYSYLAR_LOG_INFO(system_log)<<"hello system"<<std::endl;
+    MYSYLAR_LOG_INFO(system_log)<<"hello system";
     std::cout<<mysylar::LoggerMgr::GetInstance()->toYamlString()<<std::endl;
     YAML::Node root = YAML::LoadFile("/home/liaochao/workspace/mysylar/bin/config/log.yaml");
     mysylar::Config::LoadFromYaml(root);

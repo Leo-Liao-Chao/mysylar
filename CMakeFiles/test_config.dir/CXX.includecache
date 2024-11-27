@@ -35,8 +35,6 @@ boost/lexical_cast.hpp
 -
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
-./util/util.h
-/home/liaochao/workspace/mysylar/mysylar/util/util.h
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string

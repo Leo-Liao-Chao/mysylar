@@ -2,13 +2,6 @@
 namespace mysylar
 {
     // Config::ConfigVarMap Config::s_datas;
-
-    ConfigVarBase::ptr Config::LookupBase(const std::string &name)
-    {
-        auto it = GetDatas().find(name);
-        return it == GetDatas().end() ? nullptr : it->second;
-    }
-
     static void ListAllMember(const std::string &prefix, const YAML::Node &node, std::list<std::pair<std::string, const YAML::Node>> &output)
     {
         if (prefix.find_first_not_of("abcdefghijklmnopqrstuvwxyz._0123456789") != std::string::npos)

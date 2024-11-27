@@ -26,7 +26,6 @@ namespace mysylar
         }
         return "UNKNOWN";
     }
-
     LogLevel::Level LogLevel::FromString(const std::string &str)
     {
 #define XX(level, v)            \
@@ -49,6 +48,10 @@ namespace mysylar
 #undef XX
     }
 
+    LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char *file, int32_t line, uint32_t elapse,
+                       uint32_t threadId, uint32_t fiberId, uint64_t time) : m_file(file), m_line(line), m_elapse(elapse), m_threadId(threadId), m_fiberId(fiberId), m_time(time), m_logger(logger), m_level(level)
+    {
+    }
     void LogEvent::format(const char *fmt, ...)
     {
         va_list al;
@@ -66,15 +69,7 @@ namespace mysylar
             free(buf);
         }
     }
-
-    LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char *file, int32_t line, uint32_t elapse,
-                       uint32_t threadId, uint32_t fiberId, uint64_t time) : m_file(file), m_line(line), m_elapse(elapse), m_threadId(threadId), m_fiberId(fiberId), m_time(time), m_logger(logger), m_level(level)
-    {
-    }
-    std::stringstream &LogEventWrap::getSS()
-    {
-        return m_event->getSS();
-    }
+    
     LogEventWrap::LogEventWrap(LogEvent::ptr e) : m_event(e)
     {
     }
@@ -82,18 +77,9 @@ namespace mysylar
     {
         m_event->getLogger()->log(m_event->getLevel(), m_event);
     }
-
-    void LogAppender::setFormatter(LogFormatter::ptr val)
+    std::stringstream &LogEventWrap::getSS()
     {
-        m_formatter = val;
-        if(m_formatter)
-        {
-            m_hasFromatter = true;
-        }
-        else
-        {
-            m_hasFromatter = false;
-        }
+        return m_event->getSS();
     }
 
     class MessageFormatItem : public LogFormatter::FormatterItem
@@ -234,14 +220,13 @@ namespace mysylar
     {
         m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
     }
-
     void Logger::setFormatter(LogFormatter::ptr val)
     {
         m_formatter = val;
 
-        for(auto& i:m_appenders)
+        for (auto &i : m_appenders)
         {
-            if(!i->m_hasFromatter)
+            if (!i->m_hasFormatter)
             {
                 i->m_formatter = m_formatter;
             }
@@ -258,7 +243,6 @@ namespace mysylar
         // m_formatter = new_val;
         setFormatter(new_val);
     }
-
     std::string Logger::toYamlString()
     {
         YAML::Node node;
@@ -280,7 +264,6 @@ namespace mysylar
         ss << node;
         return ss.str();
     }
-
     LogFormatter::ptr Logger::getFormatter()
     {
         return m_formatter;
@@ -517,6 +500,19 @@ namespace mysylar
         // std::cout << m_items.size() << std::endl;
     }
 
+    void LogAppender::setFormatter(LogFormatter::ptr val)
+    {
+        m_formatter = val;
+        if (m_formatter)
+        {
+            m_hasFormatter = true;
+        }
+        else
+        {
+            m_hasFormatter = false;
+        }
+    }
+
     void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event)
     {
         if (level >= m_level)
@@ -534,7 +530,7 @@ namespace mysylar
         {
             node["level"] = LogLevel::ToString(m_level);
         }
-        if (m_hasFromatter&&m_formatter)
+        if (m_hasFormatter && m_formatter)
         {
             node["formatter"] = m_formatter->getPattern();
         }
@@ -574,7 +570,7 @@ namespace mysylar
         {
             node["level"] = LogLevel::ToString(m_level);
         }
-        if (m_hasFromatter&&m_formatter)
+        if (m_hasFormatter && m_formatter)
         {
             node["formatter"] = m_formatter->getPattern();
         }
@@ -592,7 +588,6 @@ namespace mysylar
 
         init();
     }
-
     Logger::ptr LoggerManager::getLogger(const std::string &name)
     {
         auto it = m_loggers.find(name);
@@ -605,7 +600,21 @@ namespace mysylar
         m_loggers[name] = logger;
         return logger;
     }
-
+    std::string LoggerManager::toYamlString()
+    {
+        YAML::Node node;
+        for (auto &i : m_loggers)
+        {
+            node.push_back(YAML::Load(i.second->toYamlString()));
+        }
+        std::stringstream ss;
+        ss << node;
+        return ss.str();
+    }
+    void LoggerManager::init()
+    {
+    }
+    //Load yaml 
     struct LogAppenderDefine
     {
         int type = 0; // 1 File, 2 Stdout
@@ -618,7 +627,6 @@ namespace mysylar
             return type == oth.type && level == oth.type && file == oth.file;
         }
     };
-
     struct LogDefine
     {
         std::string name;
@@ -636,7 +644,6 @@ namespace mysylar
             return name < oth.name;
         }
     };
-
     template <>
     class LexicalCast<std::string, std::set<LogDefine>>
     {
@@ -708,7 +715,6 @@ namespace mysylar
             return vec;
         }
     };
-
     template <>
     class LexicalCast<std::set<LogDefine>, std::string>
     {
@@ -759,9 +765,7 @@ namespace mysylar
             return ss.str();
         }
     };
-
     mysylar::ConfigVar<std::set<LogDefine>>::ptr g_log_defines = mysylar::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
-
     struct LogIniter
     {
         LogIniter()
@@ -831,22 +835,7 @@ namespace mysylar
                                            } });
         }
     };
-
     static LogIniter __log_init;
 
-    std::string LoggerManager::toYamlString()
-    {
-        YAML::Node node;
-        for (auto &i : m_loggers)
-        {
-            node.push_back(YAML::Load(i.second->toYamlString()));
-        }
-        std::stringstream ss;
-        ss << node;
-        return ss.str();
-    }
-
-    void LoggerManager::init()
-    {
-    }
+    
 }

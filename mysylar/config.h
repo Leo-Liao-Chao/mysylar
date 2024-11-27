@@ -18,7 +18,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include "./log.h"
-#include "./util/util.h"
+// #include "./util/util.h"
 // #include "./singleton.h"
 
 namespace mysylar
@@ -74,7 +74,6 @@ namespace mysylar
             return vec;
         }
     };
-
     template <class T>
     class LexicalCast<std::vector<T>, std::string>
     {
@@ -110,7 +109,6 @@ namespace mysylar
             return list;
         }
     };
-
     template <class T>
     class LexicalCast<std::list<T>, std::string>
     {
@@ -146,7 +144,6 @@ namespace mysylar
             return set;
         }
     };
-
     template <class T>
     class LexicalCast<std::set<T>, std::string>
     {
@@ -182,7 +179,6 @@ namespace mysylar
             return set;
         }
     };
-
     template <class T>
     class LexicalCast<std::unordered_set<T>, std::string>
     {
@@ -218,7 +214,6 @@ namespace mysylar
             return map;
         }
     };
-
     template <class T>
     class LexicalCast<std::map<std::string, T>, std::string>
     {
@@ -254,7 +249,6 @@ namespace mysylar
             return map;
         }
     };
-
     template <class T>
     class LexicalCast<std::unordered_map<std::string, T>, std::string>
     {
@@ -277,7 +271,6 @@ namespace mysylar
     template <class T, class FromStr = LexicalCast<std::string, T>, class ToStr = LexicalCast<T, std::string>>
     class ConfigVar : public ConfigVarBase
     {
-
     public:
         typedef std::shared_ptr<ConfigVar> ptr;
         typedef std::function<void(const T &old_value, const T &new_value)> on_change_cb;
@@ -327,7 +320,6 @@ namespace mysylar
             }
             m_val = v;
         }
-
         std::string getTypeName() const override { return typeid(T).name(); }
 
         void addListener(uint64_t key, on_change_cb cb)
@@ -402,13 +394,17 @@ namespace mysylar
             }
             return std::dynamic_pointer_cast<ConfigVar<T>>(it->second);
         }
+        static ConfigVarBase::ptr LookupBase(const std::string &name)
+        {
+        auto it = GetDatas().find(name);
+        return it == GetDatas().end() ? nullptr : it->second;
+        }
 
         static void LoadFromYaml(const YAML::Node &root);
-        static ConfigVarBase::ptr LookupBase(const std::string &name);
 
     private:
-        static ConfigVarMap& GetDatas()
-        {   
+        static ConfigVarMap &GetDatas()
+        {
             static ConfigVarMap s_datas;
             return s_datas;
         }
