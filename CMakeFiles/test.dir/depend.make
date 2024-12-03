@@ -3,6 +3,7 @@
 
 CMakeFiles/test.dir/test/test.cpp.o: mysylar/log.h
 CMakeFiles/test.dir/test/test.cpp.o: mysylar/singleton.h
+CMakeFiles/test.dir/test/test.cpp.o: mysylar/thread.h
 CMakeFiles/test.dir/test/test.cpp.o: mysylar/util/util.h
 CMakeFiles/test.dir/test/test.cpp.o: test/test.cpp
 

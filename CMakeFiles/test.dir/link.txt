@@ -1,1 +1,1 @@
-/usr/bin/c++   -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function  -rdynamic CMakeFiles/test.dir/test/test.cpp.o  -o bin/test  lib/libmysylar.a /usr/local/lib/libyaml-cpp.a 
+/usr/bin/c++   -rdynamic -O0 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined  -rdynamic CMakeFiles/test.dir/test/test.cpp.o  -o bin/test  lib/libmysylar.a -lpthread /usr/local/lib/libyaml-cpp.a 

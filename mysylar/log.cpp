@@ -222,10 +222,12 @@ namespace mysylar
     }
     void Logger::setFormatter(LogFormatter::ptr val)
     {
+        MutexType::Lock lock(m_mutex);
         m_formatter = val;
 
         for (auto &i : m_appenders)
         {
+            MutexType::Lock ll(i->m_mutex);
             if (!i->m_hasFormatter)
             {
                 i->m_formatter = m_formatter;
@@ -245,6 +247,7 @@ namespace mysylar
     }
     std::string Logger::toYamlString()
     {
+        MutexType::Lock lock(m_mutex);
         YAML::Node node;
         node["name"] = m_name;
         if (m_level != LogLevel::UNKOWN)
@@ -266,12 +269,15 @@ namespace mysylar
     }
     LogFormatter::ptr Logger::getFormatter()
     {
+        MutexType::Lock lock(m_mutex);
         return m_formatter;
     }
     void Logger::addAppender(LogAppender::ptr appender)
     {
+        MutexType::Lock lock(m_mutex);
         if (!appender->getFormatter())
         {
+            MutexType::Lock ll(appender->m_mutex);
             appender->m_formatter = m_formatter;
         }
 
@@ -279,6 +285,7 @@ namespace mysylar
     }
     void Logger::delAppender(LogAppender::ptr appender)
     {
+        MutexType::Lock lock(m_mutex);
         for (auto it = m_appenders.begin(); it != m_appenders.end(); it++)
         {
             if (*it == appender)
@@ -290,6 +297,7 @@ namespace mysylar
     }
     void Logger::clearAppenders()
     {
+        MutexType::Lock lock(m_mutex);
         m_appenders.clear();
     }
     void Logger::log(LogLevel::Level level, LogEvent::ptr event)
@@ -297,6 +305,7 @@ namespace mysylar
         if (level >= m_level)
         {
             auto self = shared_from_this();
+            MutexType::Lock lock(m_mutex);
             if (!m_appenders.empty())
             {
                 for (auto &i : m_appenders)
@@ -499,9 +508,14 @@ namespace mysylar
         }
         // std::cout << m_items.size() << std::endl;
     }
-
+    LogFormatter::ptr LogAppender::getFormatter()
+    {
+        MutexType::Lock lock(m_mutex);
+        return m_formatter;
+    }
     void LogAppender::setFormatter(LogFormatter::ptr val)
     {
+        MutexType::Lock lock(m_mutex);
         m_formatter = val;
         if (m_formatter)
         {
@@ -517,13 +531,13 @@ namespace mysylar
     {
         if (level >= m_level)
         {
-            // std::string str = m_formatter->format(logger, level, event);
-            // std::cout<<str<<"****"<<std::endl;
+            MutexType::Lock lock(m_mutex);
             std::cout << m_formatter->format(logger, level, event);
         }
     }
     std::string StdoutLogAppender::toYamlString()
     {
+        MutexType::Lock lock(m_mutex);
         YAML::Node node;
         node["type"] = "StdoutLogAppender";
         if (m_level != LogLevel::UNKOWN)
@@ -546,6 +560,7 @@ namespace mysylar
     }
     bool FileLogAppender::reopen()
     {
+        MutexType::Lock lock(m_mutex);
         if (m_filestream)
         {
             m_filestream.close();
@@ -558,11 +573,22 @@ namespace mysylar
     {
         if (level >= m_level)
         {
-            m_filestream << m_formatter->format(logger, level, event);
+            uint64_t now = time(0);
+            if(now != m_lastTime)
+            {
+                reopen();
+                m_lastTime = now;
+            }
+            MutexType::Lock lock(m_mutex);
+            if(!(m_filestream << m_formatter->format(logger, level, event)))
+            {
+                std::cout<<"error"<<std::endl;
+            }
         }
     }
     std::string FileLogAppender::toYamlString()
     {
+        MutexType::Lock lock(m_mutex);
         YAML::Node node;
         node["type"] = "FileLogAppender";
         node["file"] = m_filename;
@@ -590,6 +616,7 @@ namespace mysylar
     }
     Logger::ptr LoggerManager::getLogger(const std::string &name)
     {
+        MutexType::Lock lock(m_mutex);
         auto it = m_loggers.find(name);
         if (it != m_loggers.end())
         {
@@ -602,6 +629,7 @@ namespace mysylar
     }
     std::string LoggerManager::toYamlString()
     {
+        MutexType::Lock lock(m_mutex);
         YAML::Node node;
         for (auto &i : m_loggers)
         {
@@ -770,7 +798,7 @@ namespace mysylar
     {
         LogIniter()
         {
-            g_log_defines->addListener(0xF1E231, [](const std::set<LogDefine> &old_value, const std::set<LogDefine> &new_value)
+            g_log_defines->addListener( [](const std::set<LogDefine> &old_value, const std::set<LogDefine> &new_value)
                                        {
                                            MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) << "on_logger_conf_changed";
                                            for (auto &i : new_value)

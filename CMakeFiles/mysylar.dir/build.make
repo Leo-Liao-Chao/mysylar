@@ -99,11 +99,25 @@ CMakeFiles/mysylar.dir/mysylar/config.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mysylar.dir/mysylar/config.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/liaochao/workspace/mysylar/mysylar/config.cpp -o CMakeFiles/mysylar.dir/mysylar/config.cpp.s
 
+CMakeFiles/mysylar.dir/mysylar/thread.cpp.o: CMakeFiles/mysylar.dir/flags.make
+CMakeFiles/mysylar.dir/mysylar/thread.cpp.o: mysylar/thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/liaochao/workspace/mysylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/mysylar.dir/mysylar/thread.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mysylar.dir/mysylar/thread.cpp.o -c /home/liaochao/workspace/mysylar/mysylar/thread.cpp
+
+CMakeFiles/mysylar.dir/mysylar/thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mysylar.dir/mysylar/thread.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/liaochao/workspace/mysylar/mysylar/thread.cpp > CMakeFiles/mysylar.dir/mysylar/thread.cpp.i
+
+CMakeFiles/mysylar.dir/mysylar/thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mysylar.dir/mysylar/thread.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/liaochao/workspace/mysylar/mysylar/thread.cpp -o CMakeFiles/mysylar.dir/mysylar/thread.cpp.s
+
 # Object files for target mysylar
 mysylar_OBJECTS = \
 "CMakeFiles/mysylar.dir/mysylar/log.cpp.o" \
 "CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o" \
-"CMakeFiles/mysylar.dir/mysylar/config.cpp.o"
+"CMakeFiles/mysylar.dir/mysylar/config.cpp.o" \
+"CMakeFiles/mysylar.dir/mysylar/thread.cpp.o"
 
 # External object files for target mysylar
 mysylar_EXTERNAL_OBJECTS =
@@ -111,9 +125,10 @@ mysylar_EXTERNAL_OBJECTS =
 lib/libmysylar.a: CMakeFiles/mysylar.dir/mysylar/log.cpp.o
 lib/libmysylar.a: CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o
 lib/libmysylar.a: CMakeFiles/mysylar.dir/mysylar/config.cpp.o
+lib/libmysylar.a: CMakeFiles/mysylar.dir/mysylar/thread.cpp.o
 lib/libmysylar.a: CMakeFiles/mysylar.dir/build.make
 lib/libmysylar.a: CMakeFiles/mysylar.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/liaochao/workspace/mysylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library lib/libmysylar.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/liaochao/workspace/mysylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library lib/libmysylar.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/mysylar.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mysylar.dir/link.txt --verbose=$(VERBOSE)
 

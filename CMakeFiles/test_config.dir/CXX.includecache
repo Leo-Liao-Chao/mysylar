@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/liaochao/workspace/mysylar/mysylar/config.cpp
+./config.h
+/home/liaochao/workspace/mysylar/mysylar/config.h
+
 /home/liaochao/workspace/mysylar/mysylar/config.h
 memory
 -
@@ -35,6 +39,8 @@ boost/lexical_cast.hpp
 -
 ./log.h
 /home/liaochao/workspace/mysylar/mysylar/log.h
+./thread.h
+/home/liaochao/workspace/mysylar/mysylar/thread.h
 
 /home/liaochao/workspace/mysylar/mysylar/log.h
 string
@@ -71,9 +77,27 @@ boost/lexical_cast.hpp
 /home/liaochao/workspace/mysylar/mysylar/util/util.h
 ./singleton.h
 /home/liaochao/workspace/mysylar/mysylar/singleton.h
+./thread.h
+/home/liaochao/workspace/mysylar/mysylar/thread.h
 
 /home/liaochao/workspace/mysylar/mysylar/singleton.h
 memory
+-
+
+/home/liaochao/workspace/mysylar/mysylar/thread.h
+thread
+-
+functional
+-
+memory
+-
+pthread.h
+-
+semaphore.h
+-
+stdint.h
+-
+atomic
 -
 
 /home/liaochao/workspace/mysylar/mysylar/util/util.h

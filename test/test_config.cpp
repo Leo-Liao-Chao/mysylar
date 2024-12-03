@@ -15,8 +15,7 @@ mysylar::ConfigVar<std::map<std::string, int>>::ptr g_str_int_map_value_config =
 mysylar::ConfigVar<std::unordered_map<std::string, int>>::ptr g_str_int_umap_value_config = mysylar::Config::Lookup("system.str_int_umap", std::unordered_map<std::string, int>{{"k", 1}}, "system str int umap");
 
 
-#if 0
-{
+
 // mysylar::Config::ConfigVarMap mysylar::Config::s_datas;
 
 //
@@ -166,22 +165,23 @@ namespace mysylar
 
 mysylar::ConfigVar<Person>::ptr g_person = mysylar::Config::Lookup("class.person", Person(), "system person");
 
-mysylar::ConfigVar<std::map<std::string, Person>>::ptr g_str_person_map_value_config = mysylar::Config::Lookup("class.str_person_map", std::map<std::string, Person>(), "system str person map");
+mysylar::ConfigVar<std::map<std::string, Person>>::ptr g_str_person_map_value_config = mysylar::Config::Lookup("class.map", std::map<std::string, Person>(), "system str person map");
 
-mysylar::ConfigVar<std::map<std::string, std::vector<Person>>>::ptr g_str_vec_person_map_value_config = mysylar::Config::Lookup("class.str_vec_person_map", std::map<std::string, std::vector<Person>>(), "system str vecperson map");
+mysylar::ConfigVar<std::map<std::string, std::vector<Person>>>::ptr g_str_vec_person_map_value_config = mysylar::Config::Lookup("class.vec_map", std::map<std::string, std::vector<Person>>(), "system str vecperson map");
 void test_class()
 {
     MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) << "before: " << g_person->getValue().toString() << " - " << g_person->toString();
 
-#define XX_PM(g_var,prefix) \
-{\
-    auto m = g_var->getValue();\
-    for(auto& i:m)    {\
-        MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) <<prefix << i.first << " - " << i.second.toString();\
-    }\
-    MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) <<prefix <<": siez= " << m.size();\
-}
-    g_person->addListener(10,[](const Person& old_value,const Person& new_value)
+#define XX_PM(g_var, prefix)                                                                           \
+    {                                                                                                  \
+        auto m = g_var->getValue();                                                                    \
+        for (auto &i : m)                                                                              \
+        {                                                                                              \
+            MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) << prefix << i.first << " - " << i.second.toString(); \
+        }                                                                                              \
+        MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) << prefix << ": siez= " << m.size();                      \
+    }
+    g_person->addListener([](const Person& old_value,const Person& new_value)
     {
         MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT())<<"old_value ="<<old_value.toString()<<"new_value ="<<new_value.toString();
     });
@@ -199,24 +199,24 @@ void test_class()
     MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) <<"after: "<< g_str_vec_person_map_value_config->toString();
 
 }
-}
-#endif
+
+
 
 void test_log()
 {
     static mysylar::Logger::ptr system_log = MYSYLAR_LOG_NAME("system");
-    MYSYLAR_LOG_INFO(system_log)<<"hello system";
-    std::cout<<mysylar::LoggerMgr::GetInstance()->toYamlString()<<std::endl;
+    MYSYLAR_LOG_INFO(system_log) << "hello system";
+    std::cout << mysylar::LoggerMgr::GetInstance()->toYamlString() << std::endl;
     YAML::Node root = YAML::LoadFile("/home/liaochao/workspace/mysylar/bin/config/log.yaml");
     mysylar::Config::LoadFromYaml(root);
-    std::cout << "=======" <<std::endl;
-    std::cout<<mysylar::LoggerMgr::GetInstance()->toYamlString()<<std::endl;
-    std::cout << "=======" <<std::endl;
-    std::cout<<root <<std::endl;
-    MYSYLAR_LOG_INFO(system_log) <<"hello system "<<std::endl;
+    std::cout << "=======" << std::endl;
+    std::cout << mysylar::LoggerMgr::GetInstance()->toYamlString() << std::endl;
+    std::cout << "=======" << std::endl;
+    std::cout << root << std::endl;
+    MYSYLAR_LOG_INFO(system_log) << "hello system " << std::endl;
 
     system_log->setFormatter("%d - %m%n");
-    MYSYLAR_LOG_INFO(system_log) <<"hello system "<<std::endl;
+    MYSYLAR_LOG_INFO(system_log) << "hello system " << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -225,5 +225,7 @@ int main(int argc, char **argv)
     // test_class();
     // std::cout << "Debug 1" <<std::endl;
     test_log();
+    mysylar::Config::Visit([](mysylar::ConfigVarBase::ptr var)
+                           { MYSYLAR_LOG_INFO(MYSYLAR_LOG_ROOT()) << "name = " << var->getName() << " description=" << var->getDescription() << " typename=" << var->getTypeName() << " value=" << var->toString(); });
     return 0;
 }
