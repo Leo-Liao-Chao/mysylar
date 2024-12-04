@@ -8,6 +8,15 @@ CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/singleton.h
 CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/thread.h
 CMakeFiles/mysylar.dir/mysylar/config.cpp.o: mysylar/util/util.h
 
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/config.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/fiber.cpp
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/fiber.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/log.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/macro.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/singleton.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/thread.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o: mysylar/util/util.h
+
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/config.h
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.cpp
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o: mysylar/log.h
@@ -21,6 +30,10 @@ CMakeFiles/mysylar.dir/mysylar/thread.cpp.o: mysylar/thread.cpp
 CMakeFiles/mysylar.dir/mysylar/thread.cpp.o: mysylar/thread.h
 CMakeFiles/mysylar.dir/mysylar/thread.cpp.o: mysylar/util/util.h
 
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/fiber.h
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/log.h
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/singleton.h
+CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/thread.h
 CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/util/util.cpp
 CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o: mysylar/util/util.h
 

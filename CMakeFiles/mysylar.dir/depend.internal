@@ -8,6 +8,15 @@ CMakeFiles/mysylar.dir/mysylar/config.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/singleton.h
  /home/liaochao/workspace/mysylar/mysylar/thread.h
  /home/liaochao/workspace/mysylar/mysylar/util/util.h
+CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o
+ /home/liaochao/workspace/mysylar/mysylar/config.h
+ /home/liaochao/workspace/mysylar/mysylar/fiber.cpp
+ /home/liaochao/workspace/mysylar/mysylar/fiber.h
+ /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/macro.h
+ /home/liaochao/workspace/mysylar/mysylar/singleton.h
+ /home/liaochao/workspace/mysylar/mysylar/thread.h
+ /home/liaochao/workspace/mysylar/mysylar/util/util.h
 CMakeFiles/mysylar.dir/mysylar/log.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/config.h
  /home/liaochao/workspace/mysylar/mysylar/log.cpp
@@ -22,5 +31,9 @@ CMakeFiles/mysylar.dir/mysylar/thread.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/thread.h
  /home/liaochao/workspace/mysylar/mysylar/util/util.h
 CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o
+ /home/liaochao/workspace/mysylar/mysylar/fiber.h
+ /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/singleton.h
+ /home/liaochao/workspace/mysylar/mysylar/thread.h
  /home/liaochao/workspace/mysylar/mysylar/util/util.cpp
  /home/liaochao/workspace/mysylar/mysylar/util/util.h

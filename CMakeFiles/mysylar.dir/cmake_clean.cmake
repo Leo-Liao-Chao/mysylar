@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mysylar.dir/mysylar/config.cpp.o"
+  "CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o"
   "CMakeFiles/mysylar.dir/mysylar/log.cpp.o"
   "CMakeFiles/mysylar.dir/mysylar/thread.cpp.o"
   "CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o"

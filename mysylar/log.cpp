@@ -49,9 +49,14 @@ namespace mysylar
     }
 
     LogEvent::LogEvent(std::shared_ptr<Logger> logger, LogLevel::Level level, const char *file, int32_t line, uint32_t elapse,
-                       uint32_t threadId, uint32_t fiberId, uint64_t time) : m_file(file), m_line(line), m_elapse(elapse), m_threadId(threadId), m_fiberId(fiberId), m_time(time), m_logger(logger), m_level(level)
-    {
-    }
+                 uint32_t threadId, uint32_t fiberId, uint64_t time,const std::string& thread_name)
+    : m_file(file), m_line(line), m_elapse(elapse), m_threadId(threadId), m_fiberId(fiberId), m_time(time),
+      m_threadName(thread_name),  // 按声明顺序初始化
+      m_logger(logger),          // 最后初始化 m_logger 和 m_level
+      m_level(level)
+{
+}
+
     void LogEvent::format(const char *fmt, ...)
     {
         va_list al;
@@ -136,6 +141,15 @@ namespace mysylar
             os << event->getFiberId();
         }
     };
+    class ThreadNameFormatItem : public LogFormatter::FormatterItem
+    {
+    public:
+        ThreadNameFormatItem (const std::string &str = "") {}
+        void format(std::ostream &os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override
+        {
+            os << event->getThreadName();
+        }
+    };
     class DataTimeFormatItem : public LogFormatter::FormatterItem
     {
     public:
@@ -218,7 +232,7 @@ namespace mysylar
 
     Logger::Logger(const std::string &name) : m_name(name), m_level(LogLevel::Level::DEBUG)
     {
-        m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
+        m_formatter.reset(new LogFormatter("%d{%Y-%m-%d %H:%M:%S}%T%t%T%N%T%F%T[%p]%T[%c]%T%f:%l%T%m%n"));
     }
     void Logger::setFormatter(LogFormatter::ptr val)
     {
@@ -469,7 +483,8 @@ namespace mysylar
             XX(f, FilenameFormatItem),
             XX(l, LineFormatItem),
             XX(T, TabFormatItem),
-            XX(F, FiberIdFormatItem)
+            XX(F, FiberIdFormatItem),
+            XX(N, ThreadNameFormatItem)
 #undef XX
         };
 

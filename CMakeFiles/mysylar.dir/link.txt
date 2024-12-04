@@ -1,2 +1,2 @@
-/usr/bin/ar qc lib/libmysylar.a  CMakeFiles/mysylar.dir/mysylar/log.cpp.o CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o CMakeFiles/mysylar.dir/mysylar/config.cpp.o CMakeFiles/mysylar.dir/mysylar/thread.cpp.o
+/usr/bin/ar qc lib/libmysylar.a  CMakeFiles/mysylar.dir/mysylar/log.cpp.o CMakeFiles/mysylar.dir/mysylar/util/util.cpp.o CMakeFiles/mysylar.dir/mysylar/config.cpp.o CMakeFiles/mysylar.dir/mysylar/thread.cpp.o CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o
 /usr/bin/ranlib lib/libmysylar.a

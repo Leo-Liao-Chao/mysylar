@@ -3,12 +3,14 @@ project(mysylar)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
+# add_definitions(-DNDEBUG)
 
 set(LIB_SRC
     mysylar/log.cpp
     mysylar/util/util.cpp
     mysylar/config.cpp
     mysylar/thread.cpp
+    mysylar/fiber.cpp
     )
 
 find_package(yaml-cpp REQUIRED)
@@ -41,6 +43,14 @@ target_link_libraries(test_config ${LIBS})
 add_executable(test_thread test/test_thread.cpp)
 add_dependencies(test_thread mysylar)
 target_link_libraries(test_thread ${LIBS})
+
+add_executable(test_util test/test_util.cpp)
+add_dependencies(test_util mysylar)
+target_link_libraries(test_util ${LIBS})
+
+add_executable(test_fiber test/test_fiber.cpp)
+add_dependencies(test_fiber mysylar)
+target_link_libraries(test_fiber ${LIBS})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

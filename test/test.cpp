@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
     // // logger->addAppender(file_appender);
 
-    mysylar::LogEvent::ptr event(new mysylar::LogEvent(logger, mysylar::LogLevel::DEBUG, __FILE__, __LINE__, 0, mysylar::GetThreadId(), mysylar::GetFiberId(), time(0)));
+    mysylar::LogEvent::ptr event(new mysylar::LogEvent(logger, mysylar::LogLevel::DEBUG, __FILE__, __LINE__, 0, mysylar::GetThreadId(), mysylar::GetFiberId(), time(0),mysylar::Thread::GetName()));
     event->getSS() << "Hello mysylar log";
     logger->log(mysylar::LogLevel::DEBUG, event);
 

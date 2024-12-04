@@ -114,6 +114,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_fiber
+
+# Build rule for target.
+test_fiber: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_fiber
+.PHONY : test_fiber
+
+# fast build rule for target.
+test_fiber/fast:
+	$(MAKE) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/build
+.PHONY : test_fiber/fast
+
+#=============================================================================
+# Target rules for targets named test_util
+
+# Build rule for target.
+test_util: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_util
+.PHONY : test_util
+
+# fast build rule for target.
+test_util/fast:
+	$(MAKE) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
+#=============================================================================
 # Target rules for targets named test_config
 
 # Build rule for target.
@@ -194,6 +220,33 @@ mysylar/config.cpp.s:
 	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/mysylar/config.cpp.s
 	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/config.cpp.s
 .PHONY : mysylar/config.cpp.s
+
+mysylar/fiber.o: mysylar/fiber.cpp.o
+
+.PHONY : mysylar/fiber.o
+
+# target to build an object file
+mysylar/fiber.cpp.o:
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/fiber.cpp.o
+.PHONY : mysylar/fiber.cpp.o
+
+mysylar/fiber.i: mysylar/fiber.cpp.i
+
+.PHONY : mysylar/fiber.i
+
+# target to preprocess a source file
+mysylar/fiber.cpp.i:
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/fiber.cpp.i
+.PHONY : mysylar/fiber.cpp.i
+
+mysylar/fiber.s: mysylar/fiber.cpp.s
+
+.PHONY : mysylar/fiber.s
+
+# target to generate assembly for a file
+mysylar/fiber.cpp.s:
+	$(MAKE) -f CMakeFiles/mysylar.dir/build.make CMakeFiles/mysylar.dir/mysylar/fiber.cpp.s
+.PHONY : mysylar/fiber.cpp.s
 
 mysylar/log.o: mysylar/log.cpp.o
 
@@ -330,6 +383,33 @@ test/test_config.cpp.s:
 	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/test/test_config.cpp.s
 .PHONY : test/test_config.cpp.s
 
+test/test_fiber.o: test/test_fiber.cpp.o
+
+.PHONY : test/test_fiber.o
+
+# target to build an object file
+test/test_fiber.cpp.o:
+	$(MAKE) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/test/test_fiber.cpp.o
+.PHONY : test/test_fiber.cpp.o
+
+test/test_fiber.i: test/test_fiber.cpp.i
+
+.PHONY : test/test_fiber.i
+
+# target to preprocess a source file
+test/test_fiber.cpp.i:
+	$(MAKE) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/test/test_fiber.cpp.i
+.PHONY : test/test_fiber.cpp.i
+
+test/test_fiber.s: test/test_fiber.cpp.s
+
+.PHONY : test/test_fiber.s
+
+# target to generate assembly for a file
+test/test_fiber.cpp.s:
+	$(MAKE) -f CMakeFiles/test_fiber.dir/build.make CMakeFiles/test_fiber.dir/test/test_fiber.cpp.s
+.PHONY : test/test_fiber.cpp.s
+
 test/test_thread.o: test/test_thread.cpp.o
 
 .PHONY : test/test_thread.o
@@ -357,13 +437,42 @@ test/test_thread.cpp.s:
 	$(MAKE) -f CMakeFiles/test_thread.dir/build.make CMakeFiles/test_thread.dir/test/test_thread.cpp.s
 .PHONY : test/test_thread.cpp.s
 
+test/test_util.o: test/test_util.cpp.o
+
+.PHONY : test/test_util.o
+
+# target to build an object file
+test/test_util.cpp.o:
+	$(MAKE) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/test/test_util.cpp.o
+.PHONY : test/test_util.cpp.o
+
+test/test_util.i: test/test_util.cpp.i
+
+.PHONY : test/test_util.i
+
+# target to preprocess a source file
+test/test_util.cpp.i:
+	$(MAKE) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/test/test_util.cpp.i
+.PHONY : test/test_util.cpp.i
+
+test/test_util.s: test/test_util.cpp.s
+
+.PHONY : test/test_util.s
+
+# target to generate assembly for a file
+test/test_util.cpp.s:
+	$(MAKE) -f CMakeFiles/test_util.dir/build.make CMakeFiles/test_util.dir/test/test_util.cpp.s
+.PHONY : test/test_util.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_fiber"
 	@echo "... rebuild_cache"
+	@echo "... test_util"
 	@echo "... test_config"
 	@echo "... edit_cache"
 	@echo "... test_thread"
@@ -372,6 +481,9 @@ help:
 	@echo "... mysylar/config.o"
 	@echo "... mysylar/config.i"
 	@echo "... mysylar/config.s"
+	@echo "... mysylar/fiber.o"
+	@echo "... mysylar/fiber.i"
+	@echo "... mysylar/fiber.s"
 	@echo "... mysylar/log.o"
 	@echo "... mysylar/log.i"
 	@echo "... mysylar/log.s"
@@ -387,9 +499,15 @@ help:
 	@echo "... test/test_config.o"
 	@echo "... test/test_config.i"
 	@echo "... test/test_config.s"
+	@echo "... test/test_fiber.o"
+	@echo "... test/test_fiber.i"
+	@echo "... test/test_fiber.s"
 	@echo "... test/test_thread.o"
 	@echo "... test/test_thread.i"
 	@echo "... test/test_thread.s"
+	@echo "... test/test_util.o"
+	@echo "... test/test_util.i"
+	@echo "... test/test_util.s"
 .PHONY : help
 
 

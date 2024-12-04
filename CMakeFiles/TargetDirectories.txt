@@ -1,4 +1,6 @@
+/home/liaochao/workspace/mysylar/CMakeFiles/test_fiber.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/rebuild_cache.dir
+/home/liaochao/workspace/mysylar/CMakeFiles/test_util.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/test_config.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/edit_cache.dir
 /home/liaochao/workspace/mysylar/CMakeFiles/test_thread.dir

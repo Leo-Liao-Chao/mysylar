@@ -113,6 +113,10 @@ stdio.h
 -
 stdint.h
 -
+vector
+-
+string
+-
 
 /home/liaochao/workspace/mysylar/test/test_config.cpp
 ../mysylar/config.h

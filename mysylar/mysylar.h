@@ -6,6 +6,7 @@
 #include "./util/util.h"
 #include "./config.h"
 #include "./thread.h"
-
+#include "./macro.h"
+#include "./fiber.h"
 
 #endif

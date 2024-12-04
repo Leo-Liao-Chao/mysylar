@@ -77,6 +77,10 @@ stdio.h
 -
 stdint.h
 -
+vector
+-
+string
+-
 
 /home/liaochao/workspace/mysylar/test/test.cpp
 iostream

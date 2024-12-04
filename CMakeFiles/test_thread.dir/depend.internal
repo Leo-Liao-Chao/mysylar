@@ -3,7 +3,9 @@
 
 CMakeFiles/test_thread.dir/test/test_thread.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/config.h
+ /home/liaochao/workspace/mysylar/mysylar/fiber.h
  /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/macro.h
  /home/liaochao/workspace/mysylar/mysylar/mysylar.h
  /home/liaochao/workspace/mysylar/mysylar/singleton.h
  /home/liaochao/workspace/mysylar/mysylar/thread.h
