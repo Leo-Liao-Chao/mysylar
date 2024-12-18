@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(mysylar)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations")
 # add_definitions(-DNDEBUG)
 
 set(LIB_SRC
@@ -11,6 +11,12 @@ set(LIB_SRC
     mysylar/config.cpp
     mysylar/thread.cpp
     mysylar/fiber.cpp
+    mysylar/scheduler.cpp
+    mysylar/iomanager.cpp
+    mysylar/timer.cpp
+    mysylar/mutex.cpp
+
+    mysylar/env.cpp
     )
 
 find_package(yaml-cpp REQUIRED)
@@ -51,6 +57,14 @@ target_link_libraries(test_util ${LIBS})
 add_executable(test_fiber test/test_fiber.cpp)
 add_dependencies(test_fiber mysylar)
 target_link_libraries(test_fiber ${LIBS})
+
+add_executable(test_scheduler test/test_scheduler.cpp)
+add_dependencies(test_scheduler mysylar)
+target_link_libraries(test_scheduler ${LIBS})
+
+add_executable(test_iomanager test/test_iomanager.cpp)
+add_dependencies(test_iomanager mysylar)
+target_link_libraries(test_iomanager ${LIBS})
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

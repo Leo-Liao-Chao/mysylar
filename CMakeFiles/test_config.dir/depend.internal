@@ -4,13 +4,19 @@
 CMakeFiles/test_config.dir/mysylar/config.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/config.cpp
  /home/liaochao/workspace/mysylar/mysylar/config.h
+ /home/liaochao/workspace/mysylar/mysylar/fiber.h
  /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/mutex.h
+ /home/liaochao/workspace/mysylar/mysylar/noncopyable.h
  /home/liaochao/workspace/mysylar/mysylar/singleton.h
  /home/liaochao/workspace/mysylar/mysylar/thread.h
  /home/liaochao/workspace/mysylar/mysylar/util/util.h
 CMakeFiles/test_config.dir/test/test_config.cpp.o
  /home/liaochao/workspace/mysylar/mysylar/config.h
+ /home/liaochao/workspace/mysylar/mysylar/fiber.h
  /home/liaochao/workspace/mysylar/mysylar/log.h
+ /home/liaochao/workspace/mysylar/mysylar/mutex.h
+ /home/liaochao/workspace/mysylar/mysylar/noncopyable.h
  /home/liaochao/workspace/mysylar/mysylar/singleton.h
  /home/liaochao/workspace/mysylar/mysylar/thread.h
  /home/liaochao/workspace/mysylar/mysylar/util/util.h

@@ -5,7 +5,10 @@ CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/config.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/fiber.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/log.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/macro.h
+CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/mutex.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/mysylar.h
+CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/noncopyable.h
+CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/scheduler.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/singleton.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/thread.h
 CMakeFiles/test_util.dir/test/test_util.cpp.o: mysylar/util/util.h

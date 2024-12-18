@@ -1,1 +1,4 @@
-2024-12-03 00:18:41	[INFO]	<error_format % M><error_format % N>2024-12-03 00:18:41	[INFO]	<error_format % M><error_format % N>
+2024-12-13 20:06:22	hello system 
+
+2024-12-13 20:06:22 - hello system 
+

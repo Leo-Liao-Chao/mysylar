@@ -3,13 +3,19 @@
 
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/config.cpp
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/config.h
+CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/fiber.h
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/log.h
+CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/mutex.h
+CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/noncopyable.h
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/singleton.h
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/thread.h
 CMakeFiles/test_config.dir/mysylar/config.cpp.o: mysylar/util/util.h
 
 CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/config.h
+CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/fiber.h
 CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/log.h
+CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/mutex.h
+CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/noncopyable.h
 CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/singleton.h
 CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/thread.h
 CMakeFiles/test_config.dir/test/test_config.cpp.o: mysylar/util/util.h

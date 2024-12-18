@@ -310,7 +310,7 @@ namespace mysylar
                 return false;
             }
         }
-        const T getValue() 
+        const T getValue()
         {
             RWMutexType::ReadLock lock(m_mutex);
             return m_val;
@@ -425,6 +425,7 @@ namespace mysylar
 
         static void LoadFromYaml(const YAML::Node &root);
         static void Visit(std::function<void(ConfigVarBase::ptr)> cb);
+
     private:
         static ConfigVarMap &GetDatas()
         {
