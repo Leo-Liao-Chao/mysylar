@@ -59,7 +59,7 @@ namespace mysylar
 
         ++s_fiber_count;
 
-        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber main";
+        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber main: s_fiber_count:"<<s_fiber_count;
     }
 
     Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
@@ -89,7 +89,7 @@ namespace mysylar
             makecontext(&m_ctx, &Fiber::CallerMainFunc, 0);
         }
 
-        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id;
+        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id<<"s_fiber_count: "<<s_fiber_count;
     }
 
     Fiber::~Fiber()
@@ -260,7 +260,7 @@ namespace mysylar
         cur.reset();
         // Test Fiber
         raw_ptr->back();
-        
+
         // raw_ptr->swapOut();
 
         MYSYLAR_ASSERT2(false, "never reach fiber_id=" + std::to_string(raw_ptr->getId()));

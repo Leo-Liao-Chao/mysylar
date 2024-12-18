@@ -4,7 +4,7 @@
  * @details 
  * 1. 每个线程有一个Fiber t_fiber（用于执行任务）,Fiber::ptr t_threadFiber指向（根t_fiber）的智能指针
  * 2. 通过GetThis创建main_fiber->t_threadFiber,私有无参构造函数构造t_fiber(一次),状态为EXEC
- * 3. 有参构造函数，构造任务协程指定任务函数，栈大小，是否使用caller(0->Scheduler,1->无Scheduler)，并且绑定m_ctx，用于执行任务，任务执行完设置TERM状态。
+ * 3. 有参构造函数，构造任务协程指定任务函数，栈大小，是否使用caller(0->Scheduler,1->无Scheduler)，并且绑定m_ctx，用于执行任务m_state=INIT，任务执行完设置TERM状态。
  * 4. swapIn,call()先切换t_fiber为任务fiber，fiber设为EXEC状态，切换任务进行点
  * 5. back,swapOut()先切换为（根fiber），切换回去。
  * 6. SetThis,指定t_fiber;GetThis,创建t_threadFiber，t_fiber/返回t_fiber;
@@ -13,7 +13,7 @@
  * 9. TotalFibers(),return s_fiber_count;
  * ---------------------
  * Question 1:为什么有参Fiber，不设初始状态；
- * Question 2:析构函数，为什么t_threadFiber构造了三个根t_fiber,s_fiber_count只加了一次。
+ * Question 2:析构函数，为什么t_threadFiber构造了三个根t_fiber,s_fiber_count只加了一次。问题解决，因为多线程有的已经删了。
  */
 #ifndef __MYSYLAR_FIBER_H__
 #define __MYSYLAR_FIBER_H__
