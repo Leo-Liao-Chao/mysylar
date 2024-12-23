@@ -35,15 +35,6 @@ namespace mysylar
 
     using StackAllocator = MallocStackAllocator;
 
-    uint64_t Fiber::GetFiberId()
-    {
-        if (t_fiber)
-        {
-            return t_fiber->getId();
-        }
-        return 0;
-    }
-
     Fiber::Fiber()
     {
         m_state = EXEC;
@@ -59,7 +50,7 @@ namespace mysylar
 
         ++s_fiber_count;
 
-        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber main: s_fiber_count:"<<s_fiber_count;
+        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber main: s_fiber_count:" << s_fiber_count;
     }
 
     Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
@@ -89,7 +80,7 @@ namespace mysylar
             makecontext(&m_ctx, &Fiber::CallerMainFunc, 0);
         }
 
-        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id<<"s_fiber_count: "<<s_fiber_count;
+        MYSYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id << "s_fiber_count: " << s_fiber_count;
     }
 
     Fiber::~Fiber()
@@ -116,6 +107,38 @@ namespace mysylar
                                     << " total=" << s_fiber_count;
     }
 
+    uint64_t Fiber::TotalFibers()
+    {
+        return s_fiber_count;
+    }
+    uint64_t Fiber::GetFiberId()
+    {
+        if (t_fiber)
+        {
+            return t_fiber->getId();
+        }
+        return 0;
+    }
+    // 设置当前协程
+    void Fiber::SetThis(Fiber *f)
+    {
+        t_fiber = f;
+    }
+
+    // 返回当前线程的协程，根t_fiber
+    Fiber::ptr Fiber::GetThis()
+    {
+        if (t_fiber)
+        {
+            return t_fiber->shared_from_this();
+        }
+        // 无参数构造
+        Fiber::ptr main_fiber(new Fiber);
+        // 确认是默认构造函数SetThis，当前fiber是主fiber
+        MYSYLAR_ASSERT(t_fiber == main_fiber.get());
+        t_threadFiber = main_fiber;
+        return t_fiber->shared_from_this();
+    }
     // 重置协程函数，并重置状态
     // INIT，TERM, EXCEPT ->INIT
     void Fiber::reset(std::function<void()> cb)
@@ -177,37 +200,13 @@ namespace mysylar
         }
     }
 
-    // 设置当前协程
-    void Fiber::SetThis(Fiber *f)
-    {
-        t_fiber = f;
-    }
-
-    // 返回当前协程
-    Fiber::ptr Fiber::GetThis()
-    {
-        if (t_fiber)
-        {
-            return t_fiber->shared_from_this();
-        }
-        // 无参数构造
-        Fiber::ptr main_fiber(new Fiber);
-        // 确认是默认构造函数SetThis，当前fiber是主fiber
-        MYSYLAR_ASSERT(t_fiber == main_fiber.get());
-        t_threadFiber = main_fiber;
-        return t_fiber->shared_from_this();
-    }
-
     // 协程切换到后台，并且设置为Ready状态
     void Fiber::YieldToReady()
     {
         Fiber::ptr cur = GetThis();
         MYSYLAR_ASSERT(cur->m_state == EXEC);
         cur->m_state = READY;
-        // Test fiber
-        cur->back();
-
-        // cur->swapOut();
+        cur->swapOut();
     }
 
     // 协程切换到后台，并且设置为Hold状态
@@ -216,17 +215,9 @@ namespace mysylar
         Fiber::ptr cur = GetThis();
         MYSYLAR_ASSERT(cur->m_state == EXEC);
         // Changed By Leo 1
-        // cur->m_state = HOLD;
-        // Test fiber
-        cur->back();
+        cur->m_state = HOLD;
 
-        // cur->swapOut();
-    }
-
-    // 总协程数
-    uint64_t Fiber::TotalFibers()
-    {
-        return s_fiber_count;
+        cur->swapOut();
     }
 
     void Fiber::MainFunc()
@@ -258,10 +249,7 @@ namespace mysylar
 
         auto raw_ptr = cur.get();
         cur.reset();
-        // Test Fiber
-        raw_ptr->back();
-
-        // raw_ptr->swapOut();
+        raw_ptr->swapOut();
 
         MYSYLAR_ASSERT2(false, "never reach fiber_id=" + std::to_string(raw_ptr->getId()));
     }

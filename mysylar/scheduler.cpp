@@ -29,9 +29,9 @@ namespace mysylar
             t_scheduler = this;
             // 构造fiber
             m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run, this), 0, true));
-            mysylar::Thread::SetName(m_name);
-
             t_scheduler_fiber = m_rootFiber.get();
+
+            mysylar::Thread::SetName(m_name);
             m_rootThread = mysylar::GetThreadId();
             m_threadIds.push_back(m_rootThread);
         }
@@ -55,6 +55,10 @@ namespace mysylar
     {
         return t_scheduler;
     }
+    void Scheduler::setThis()
+    {
+        t_scheduler = this;
+    }
 
     Fiber *Scheduler::GetMainFiber()
     {
@@ -69,8 +73,8 @@ namespace mysylar
             return;
         }
         m_stopping = false;
+        // 分配线程
         MYSYLAR_ASSERT(m_threads.empty());
-
         m_threads.resize(m_threadCount);
         for (size_t i = 0; i < m_threadCount; ++i)
         {
@@ -85,7 +89,11 @@ namespace mysylar
         //     MYSYLAR_LOG_INFO(g_logger) << "call out " << m_rootFiber->getState();
         // }
     }
-
+    bool Scheduler::stopping()
+    {
+        MutexType::Lock lock(m_mutex);
+        return m_autoStop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0;
+    }
     void Scheduler::stop()
     {
         m_autoStop = true;
@@ -134,6 +142,7 @@ namespace mysylar
             // }
             if (!stopping())
             {
+                std::cout << "m_rootFiber->call()" << std::endl;
                 m_rootFiber->call();
             }
         }
@@ -150,11 +159,6 @@ namespace mysylar
         }
         // if(exit_on_this_fiber) {
         // }
-    }
-
-    void Scheduler::setThis()
-    {
-        t_scheduler = this;
     }
 
     void Scheduler::run()
@@ -263,12 +267,11 @@ namespace mysylar
                 }
                 else if (cb_fiber->getState() == Fiber::EXCEPT || cb_fiber->getState() == Fiber::TERM)
                 {
-                    // 异常就清除
                     cb_fiber->reset(nullptr);
                 }
                 else
                 { // if(cb_fiber->getState() != Fiber::TERM) {
-                // 变成Hold状态
+                    // 变成Hold状态
                     cb_fiber->m_state = Fiber::HOLD;
                     cb_fiber.reset();
                 }
@@ -307,12 +310,6 @@ namespace mysylar
     void Scheduler::tickle()
     {
         MYSYLAR_LOG_INFO(g_logger) << "tickle";
-    }
-
-    bool Scheduler::stopping()
-    {
-        MutexType::Lock lock(m_mutex);
-        return m_autoStop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0;
     }
 
     void Scheduler::idle()

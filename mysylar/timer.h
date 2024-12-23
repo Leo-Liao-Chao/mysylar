@@ -10,6 +10,27 @@
 #include <set>
 #include <vector>
 
+/**
+ * @brief timer
+ * 分为循环timer，单次timer。next是触发时间，循环timer的next是当前时间+m_ms
+ * cancel()，取消->删除cb，m_timers删除timer。
+ * refresh（），更新->把原始timer移除，的next更新，加入到m_timers。
+ * rest()，重置->一致就直接return，不存在cb就return，重置next。
+ */
+/**
+ * @brief timermanager
+ * 构造m_previouseTime创造时间。
+ * addTimer: 带锁的加timer。
+ * addTimer:加入timer，如果timer是最先触发的timer，就设置m_tickled =true ,触发onTimerInsertedAtFront();
+ * addConditionTimer:绑定条件的timer。
+ * getNextTimer:获取timer序列第一个，的next相对时间，next->m_next-now_ms.
+ * onTimer: 触发timer，cb();
+ * listExpiredCb：检查有没有修改系统时间，没有修改且没到时间，return。
+ *               到时间了，创建一个timer(now_ms),获取该触发的事件，返回给cbs。
+ * detectClockRollover：判断时钟翻滚。
+ * hasTimer：有无timer。
+ */
+
 namespace mysylar
 {
     // 提前声明给Timer

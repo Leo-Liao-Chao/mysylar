@@ -19,9 +19,9 @@ namespace mysylar
     {
         switch (level)
         {
-#define XX(name)                                                                                   \
-    case LogLevel::name:                                                                           \
-        return #name;                                                                              \
+#define XX(name)         \
+    case LogLevel::name: \
+        return #name;    \
         break;
 
             XX(DEBUG);
@@ -38,10 +38,10 @@ namespace mysylar
 
     LogLevel::Level LogLevel::FromString(const std::string &str)
     {
-#define XX(level, v)                                                                               \
-    if (str == #v)                                                                                 \
-    {                                                                                              \
-        return LogLevel::level;                                                                    \
+#define XX(level, v)            \
+    if (str == #v)              \
+    {                           \
+        return LogLevel::level; \
     }
         XX(DEBUG, debug);
         XX(INFO, info);
@@ -710,7 +710,8 @@ namespace mysylar
         bool isValid() const { return !name.empty(); }
     };
 
-    template <> class LexicalCast<std::string, LogDefine>
+    template <>
+    class LexicalCast<std::string, LogDefine>
     {
     public:
         LogDefine operator()(const std::string &v)
@@ -780,7 +781,8 @@ namespace mysylar
         }
     };
 
-    template <> class LexicalCast<LogDefine, std::string>
+    template <>
+    class LexicalCast<LogDefine, std::string>
     {
     public:
         std::string operator()(const LogDefine &i)

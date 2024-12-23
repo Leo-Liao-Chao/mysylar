@@ -1,6 +1,32 @@
 /**
  * @file scheduler.h
  * @brief 协程调度器封装
+ * 0. 每个线程有一个t_scheduler,t_schedulerfiber（线程池里面的是根t_fiber，线程scheduler是m_rooFiber)没有使用，没有使用。
+ *    使用caller，线程scheduler会有一个t_scheduler_fiber
+ * 1. 构造函数，配置线程池。bool m_stopping = true;（正在停止)bool m_autoStop = false;
+ * use_caller(1:使用scheduler线程，为一个协程线程；0：不使用)
+ *      1.使用scheduler线程：创建t_fiber(根线程)，线程池--，指定t_scheduler,m_rootFiber加入run（抢单大厅）->t_scheduler_fiber，设置线程名，线程id加入线程     0.不使用scheduler线程，线程id=-1；
+ * 2. start,m_stopping == false直接退出（正在执行）。设置m_stopping = false，任务线程池（不包含scheduler)一定为空->分配线程池。
+ * ----------
+ * 线程开始跑了->
+ * 3.run
+ * setThis() ??
+ * 不是scheduler线程->创建线程（根fiber）t_scheduler_fiber,发呆线程idle_fiber,执行线程cb_fiber,ft(协程+函数+线程id)->没指定id就是任意线程都可以干，协程/函数就是任务）.
+ * 清空ft，tickle_me=false,is_active=false;
+ * 在协程池找活儿干->1.指定了线程，但不是我的线程->跳过，并且tickle_me = true,提醒其他线程。2.如果协程正在干，跳过。3. 有活干，取出任务，m_activeThreadCount++，is_active= true;激活线程。
+ * tickle_me,有其他线程的活儿干但是没干 或者找到活儿干，就tickle_me
+ * 是否提醒
+ * 如果有线程要干，切入线程，m_activeThreadCount--；如果任务执行完是Ready状态，加入线程池。如果没有结束把线程状态设为Hold，清除任务。
+ * 如果是函数要干，cb_fiber存在把他重置任务，不存在就创建一个cb_fiber，清除ft。执行cb_fiberm_activeThreadCount-;如果任务执行完是Ready状态，加入线程池。如果，异常或者结束，就删除；如果没有结束把线程状态设为Hold，清除任务。
+ * 如果没事干，并且是激活状态，m_activeThreadCount--闲置。如果idle_fiber发呆完了，break，stop；此外，开始发呆。如果没TERM或者EXCEP，变成Hold。
+ * 4. stop:m_autoStop = true
+ * 4.1. 存在m_rootFiber(使用caller)，没有额外线程,状态是开始或者是结束，m_stopping = true，正在停止，没活儿。直接return
+ * 4.2. 使用caller，==this；不使用caller！=this
+ * 4.3. m_stopping = true;每个线程提醒。如
+ * 有活儿干，加入scheduler本线程来干活儿，有活的线程就来干活儿。
+ * 4.4. 释放线程，等待结束
+ * 5. stopping()，设置autoStop设置停止，正在停止，//没有活干，没有激活的线程。
+ * 6.idle()，如果停止了idle_fiber->hold.
  */
 #ifndef __MYSYLAR_SCHEDULER_H__
 #define __MYSYLAR_SCHEDULER_H__
@@ -122,7 +148,7 @@ namespace mysylar
         void run();
 
         /**
-         * @brief 返回是否可以停止 m_autoStop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0; 
+         * @brief 返回是否可以停止 m_autoStop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0;
          *        stop()后,并且 m_autoStop,m_stopping = 1
          *        m_fibers.empty() && m_activeThreadCount == 0; 协程池为空,
          */

@@ -13,6 +13,12 @@
 #include "./noncopyable.h"
 #include "./fiber.h"
 
+/**
+ * @brief
+ *  ScopedLockImpl、ReadScopedLockImpl、WriteScopedLockImpl模板类，调用Mutex，RWMutex。
+ * Mutex、RWMutex、SpinLock封装phtread
+ * CASLock封装原子锁
+ */
 namespace mysylar {
 
 /**

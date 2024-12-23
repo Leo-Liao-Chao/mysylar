@@ -1,7 +1,7 @@
 /**
  * @file fiber.h
  * @brief 协程封装
- * @details 
+ * @details
  * 1. 每个线程有一个Fiber t_fiber（用于执行任务）,Fiber::ptr t_threadFiber指向（根t_fiber）的智能指针
  * 2. 通过GetThis创建main_fiber->t_threadFiber,私有无参构造函数构造t_fiber(一次),状态为EXEC
  * 3. 有参构造函数，构造任务协程指定任务函数，栈大小，是否使用caller(0->Scheduler,1->无Scheduler)，并且绑定m_ctx，用于执行任务m_state=INIT，任务执行完设置TERM状态。
@@ -78,6 +78,38 @@ namespace mysylar
         ~Fiber();
 
         /**
+         * @brief 返回协程id
+         */
+        uint64_t getId() const { return m_id; }
+
+        /**
+         * @brief 返回协程状态
+         */
+        State getState() const { return m_state; }
+
+        /**
+         * @brief 返回当前协程的总数量
+         */
+        static uint64_t TotalFibers();
+
+        /**
+         * @brief 获取当前协程的id
+         */
+        static uint64_t GetFiberId();
+        
+        /**
+         * @brief 设置当前线程的运行协程t_fiber
+         * @param[in] f 运行协程
+         */
+        static void SetThis(Fiber *f);
+
+        /**
+         * @brief 返回当前所在的协程t_fiber
+         */
+        static Fiber::ptr GetThis();
+
+    public:
+        /**
          * @brief 重置协程执行函数,并设置状态
          * @pre getState() 为 INIT, TERM, EXCEPT
          * @post getState() = INIT
@@ -110,28 +142,6 @@ namespace mysylar
         void back();
 
         /**
-         * @brief 返回协程id
-         */
-        uint64_t getId() const { return m_id; }
-
-        /**
-         * @brief 返回协程状态
-         */
-        State getState() const { return m_state; }
-
-    public:
-        /**
-         * @brief 设置当前线程的运行协程t_fiber
-         * @param[in] f 运行协程
-         */
-        static void SetThis(Fiber *f);
-
-        /**
-         * @brief 返回当前所在的协程t_fiber
-         */
-        static Fiber::ptr GetThis();
-
-        /**
          * @brief 将当前协程切换到后台,并设置为READY状态->swapOut()
          * @post getState() = READY
          */
@@ -144,11 +154,6 @@ namespace mysylar
         static void YieldToHold();
 
         /**
-         * @brief 返回当前协程的总数量
-         */
-        static uint64_t TotalFibers();
-
-        /**
          * @brief 协程执行函数->swapOut()->Scheduler::GetMainFiber()
          * @post 执行完成返回到线程主协程
          */
@@ -159,11 +164,6 @@ namespace mysylar
          * @post 执行完成返回到线程调度协程
          */
         static void CallerMainFunc();
-
-        /**
-         * @brief 获取当前协程的id
-         */
-        static uint64_t GetFiberId();
 
     private:
         /// 协程id

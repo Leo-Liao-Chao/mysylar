@@ -3,6 +3,7 @@
 
 namespace mysylar
 {
+    // set 
     bool Timer::Comparator::operator()(const Timer::ptr &lhs, const Timer::ptr &rhs) const
     {
         if (!lhs && !rhs)
@@ -169,17 +170,21 @@ namespace mysylar
             return;
         }
         bool rollover = detectClockRollover(now_ms);
+        // 没有到期timer
         if (!rollover && ((*m_timers.begin())->m_next > now_ms))
         {
             return;
         }
 
         Timer::ptr now_timer(new Timer(now_ms));
+        // 第一个
         auto it = rollover ? m_timers.end() : m_timers.lower_bound(now_timer);
+        // 重复的
         while (it != m_timers.end() && (*it)->m_next == now_ms)
         {
             ++it;
         }
+        // 起始-it
         expired.insert(expired.begin(), m_timers.begin(), it);
         m_timers.erase(m_timers.begin(), it);
         cbs.reserve(expired.size());
